@@ -1,0 +1,12 @@
+{
+  "name": "Computer Store",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:22",
+  "features": {
+    "ghcr.io/devcontainers/features/mysql:1": {
+      "version": "8.0",
+      "mysqlRootPassword": "200606"
+    }
+  },
+  "forwardPorts": [3000, 3306],
+  "postCreateCommand": "bash .devcontainer/setup.sh"
+}
