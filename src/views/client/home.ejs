@@ -1,50 +1,86 @@
 <%- include('../partials/header') %>
 <section class="hero">
-  <div>
-    <p class="eyebrow">Build PC nhanh, đúng chuẩn tương thích</p>
-    <h1>Linh kiện máy tính cho gaming, đồ họa và học tập</h1>
-    <p>Chọn CPU, mainboard, RAM, VGA và kiểm tra tương thích ngay trong PC Builder.</p>
+  <div class="hero-copy">
+    <p class="eyebrow">HIỆU NĂNG · TÙY BIẾN · PHÙ HỢP MỌI NHU CẦU</p>
+    <h1>BUILD YOUR<br><span>DREAM PC</span></h1>
+    <p>Khám phá linh kiện chính hãng, cấu hình tối ưu hoặc để chúng tôi gợi ý cho bạn bộ PC phù hợp nhất.</p>
     <div class="hero-actions">
-      <a class="btn primary" href="/pc-builder">Mở PC Builder</a>
-      <a class="btn" href="/products">Xem sản phẩm</a>
+      <a class="btn primary" href="/pc-builder">⚙ Tự build PC →</a>
+      <a class="btn glass" href="/products">◇ Xem PC build sẵn →</a>
     </div>
   </div>
   <div class="hero-rig">
-    <img src="/uploads/gpu.svg" alt="Card đồ họa">
-    <strong>RTX 4070 Super</strong>
-    <span>GPU nổi bật trong tuần</span>
+    <img src="/uploads/gpu.svg" alt="PC gaming">
+    <strong>PC Upgrade Store</strong>
+    <span>Hiệu năng mạnh mẽ · Thiết kế hiện đại</span>
+  </div>
+  <div class="hero-features">
+    <div><b>✦ Linh kiện chính hãng</b><span>Bảo hành đầy đủ</span></div>
+    <div><b>⚙ Tư vấn cấu hình thông minh</b><span>Phù hợp nhu cầu và ngân sách</span></div>
+    <div><b>◇ Mô phỏng lắp PC trực quan</b><span>Trải nghiệm như thật</span></div>
+    <div><b>◉ Hỗ trợ khách hàng</b><span>Nhanh chóng, tận tâm</span></div>
   </div>
 </section>
 
-<section class="section-head">
-  <h2>Danh mục linh kiện</h2>
-  <a href="/products">Xem tất cả</a>
-</section>
-<div class="category-row">
-  <% categories.forEach((category) => { %>
-    <a class="category-chip" href="/products?category=<%= category %>"><%= category %></a>
+<div class="category-row home-categories">
+  <% categories.forEach((category, index) => { %>
+    <a class="category-chip <%= index === 0 ? 'active' : '' %>" href="/products?category=<%= category %>">
+      <span class="category-icon"><%= ['▣','▰','▦','▤','▱','⬡','▥','◉'][index % 8] %></span>
+      <strong><%= category %></strong>
+    </a>
   <% }) %>
 </div>
 
-<section class="section-head">
-  <h2>Sản phẩm nổi bật</h2>
-</section>
-<div class="product-grid">
-  <% featuredProducts.forEach((product) => { %>
-    <article class="product-card">
-      <img src="<%= product.image %>" alt="<%= product.name %>">
-      <p class="category"><%= product.category %> - <%= product.brand %></p>
-      <h3><%= product.name %></h3>
-      <p class="price"><%= product.price.toLocaleString('vi-VN') %>đ</p>
-      <div class="card-actions">
-        <a class="btn small" href="/products/<%= product.id %>">Chi tiết</a>
-        <% if (user) { %>
-          <form action="/cart/add/<%= product.id %>" method="post"><button class="btn small primary" type="submit">Thêm</button></form>
-        <% } else { %>
-          <a class="btn small primary" href="/login">Đăng nhập để mua</a>
-        <% } %>
-      </div>
-    </article>
-  <% }) %>
+<div class="home-content">
+  <div>
+    <section class="section-head">
+      <div><h2>🔥 Sản phẩm nổi bật</h2><p>Những linh kiện được ưa chuộng nhất hiện nay</p></div>
+      <a href="/products">Xem tất cả →</a>
+    </section>
+    <div class="product-grid home-products">
+      <% featuredProducts.forEach((product) => { %>
+        <article class="product-card">
+          <span class="product-badge"><%= product.category %></span>
+          <img src="<%= product.image %>" alt="<%= product.name %>">
+          <p class="category"><%= product.category %> · <%= product.brand %></p>
+          <h3><%= product.name %></h3>
+          <p class="performance">Hiệu năng <strong><%= product.performance %>/100</strong></p>
+          <p class="price"><%= product.price.toLocaleString('vi-VN') %>đ</p>
+          <div class="card-actions">
+            <a class="btn small" href="/products/<%= product.id %>">Xem chi tiết</a>
+            <% if (user) { %>
+              <form action="/cart/add/<%= product.id %>" method="post"><button class="btn small primary" type="submit">🛒</button></form>
+            <% } else { %>
+              <a class="btn small primary cart-icon-btn" href="/login">🛒</a>
+            <% } %>
+          </div>
+        </article>
+      <% }) %>
+    </div>
+
+    <section class="section-head prebuilt-head">
+      <div><h2>◇ PC Build sẵn</h2><p>Cấu hình tối ưu, sẵn sàng chiến mọi tác vụ</p></div>
+      <a href="/products">Xem tất cả →</a>
+    </section>
+    <div class="prebuilt-row">
+      <article class="prebuilt-card"><div class="prebuilt-image">PC</div><div><span class="pill green">Bán chạy</span><h3>Gaming PC Pro</h3><p>Gaming hiệu năng cao · DDR5 · SSD NVMe</p><strong>32.990.000đ</strong></div><a class="btn small primary" href="/products">Xem chi tiết →</a></article>
+      <article class="prebuilt-card"><div class="prebuilt-image">PC</div><div><span class="pill red">Hot</span><h3>Gaming PC Standard</h3><p>Cân bằng hiệu năng và ngân sách</p><strong>21.990.000đ</strong></div><a class="btn small primary" href="/products">Xem chi tiết →</a></article>
+      <article class="prebuilt-card"><div class="prebuilt-image office">PC</div><div><h3>PC Văn Phòng</h3><p>Gọn gàng · ổn định · tiết kiệm</p><strong>13.990.000đ</strong></div><a class="btn small primary" href="/products">Xem chi tiết →</a></article>
+    </div>
+  </div>
+
+  <aside class="home-sidebar">
+    <div class="side-card prebuilt-promo">
+      <div><h2>PC Build sẵn</h2><p>Nhiều cấu hình tối ưu cho Game, Đồ họa, Văn phòng...</p><a class="btn primary small" href="/products">Xem ngay →</a></div>
+      <div class="pc-glow">PC</div>
+    </div>
+    <div class="side-card ai-promo">
+      <span class="ai-label">AI</span>
+      <h2>Tư vấn cấu hình với AI</h2>
+      <p>Chỉ cần nói nhu cầu và ngân sách, chúng tôi sẽ gợi ý cấu hình phù hợp nhất!</p>
+      <button class="btn ai-button" type="button">Chat ngay →</button>
+      <div class="bot-face">◉‿◉</div>
+    </div>
+  </aside>
 </div>
 <%- include('../partials/footer') %>
