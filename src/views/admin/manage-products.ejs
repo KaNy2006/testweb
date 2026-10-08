@@ -2,58 +2,58 @@
 <div class="admin-layout">
   <%- include('../partials/admin_sidebar') %>
   <section class="admin-content">
-    <h1>Quan ly linh kien</h1>
-    <form class="admin-form" action="/admin/products" method="post">
-      <input name="name" placeholder="Ten linh kien" required>
-      <input name="brand" placeholder="Hang" required>
-      <select name="category">
-        <% categories.forEach((category) => { %><option value="<%= category %>"><%= category %></option><% }) %>
-      </select>
-      <input name="price" type="number" placeholder="Gia" required>
-      <input name="stock" type="number" placeholder="Ton kho" required>
-      <input name="performance" type="number" min="1" max="100" placeholder="Hieu nang" value="70" required>
-      <button class="btn primary" type="submit">Them linh kien</button>
-    </form>
-
-    <div class="admin-product-list">
-      <% products.forEach((product) => { %>
-        <article class="admin-product-row">
-          <form class="product-edit-form" action="/admin/products/<%= product.id %>/update" method="post">
-            <label>
-              Ten
-              <input name="name" value="<%= product.name %>" required>
-            </label>
-            <label>
-              Hang
-              <input name="brand" value="<%= product.brand %>" required>
-            </label>
-            <label>
-              Danh muc
-              <select name="category">
-              <% categories.forEach((category) => { %>
-                <option value="<%= category %>" <%= product.category === category ? 'selected' : '' %>><%= category %></option>
-              <% }) %>
-              </select>
-            </label>
-            <label>
-              Gia
-              <input name="price" type="number" value="<%= product.price %>" required>
-            </label>
-            <label>
-              Kho
-              <input name="stock" type="number" value="<%= product.stock %>" required>
-            </label>
-            <label>
-              Hieu nang
-              <input name="performance" type="number" min="1" max="100" value="<%= product.performance %>" required>
-            </label>
-            <button class="btn small primary" type="submit">Sua</button>
-          </form>
-          <form action="/admin/products/<%= product.id %>/delete" method="post" class="product-delete-form">
-            <button class="btn small danger" type="submit" data-confirm="Xoa linh kien nay?">Xoa</button>
-          </form>
-        </article>
-      <% }) %>
+    <div class="admin-page-heading">
+      <div><p class="admin-eyebrow">QUẢN LÝ KHO HÀNG</p><h1>Sản phẩm</h1><p>Thêm, xem chi tiết, chỉnh sửa hoặc xóa linh kiện và PC build sẵn.</p></div>
+      <a class="btn primary" href="#add-product">+ Thêm sản phẩm</a>
+    </div>
+    <div class="admin-panel admin-filter-panel">
+      <form class="admin-filters" action="/admin/products" method="get">
+        <label><span>Tìm kiếm</span><input type="search" name="keyword" placeholder="Tên hoặc hãng sản phẩm..." value="<%= filters.keyword %>"></label>
+        <label><span>Danh mục</span><select name="category"><option value="">Tất cả danh mục</option>
+          <% categories.forEach((category) => { %><option value="<%= category %>" <%= filters.category === category ? 'selected' : '' %>><%= category %></option><% }) %>
+        </select></label>
+        <button class="btn primary" type="submit">Tìm kiếm</button>
+        <a class="btn" href="/admin/products">Đặt lại</a>
+      </form>
+    </div>
+    <div class="admin-panel">
+      <div class="admin-panel-head"><div><h2>Danh sách sản phẩm</h2><p>Đang hiển thị <%= products.length %> sản phẩm</p></div></div>
+      <% if (products.length) { %>
+        <div class="admin-table-scroll"><table class="admin-table">
+          <thead><tr><th>Sản phẩm</th><th>Danh mục</th><th>Giá bán</th><th>Tồn kho</th><th>Thao tác</th></tr></thead>
+          <tbody><% products.forEach((product) => { %>
+            <tr>
+              <td><div class="admin-product-cell"><img src="<%= product.image %>" alt=""><div><strong><%= product.name %></strong><small>#<%= product.id %> · <%= product.brand %></small></div></div></td>
+              <td><span class="admin-category"><%= product.category %></span></td>
+              <td class="admin-price"><%= product.price.toLocaleString('vi-VN') %>đ</td>
+              <td><span class="<%= product.stock === 0 ? 'stock-out' : 'stock-in' %>"><%= product.stock %> sản phẩm</span></td>
+              <td><div class="admin-actions">
+                <a class="btn small" href="/admin/products/<%= product.id %>">Xem</a>
+                <a class="btn small primary" href="/admin/products/<%= product.id %>/edit">Sửa</a>
+                <form action="/admin/products/<%= product.id %>/delete" method="post">
+                  <button class="btn small danger" type="submit" data-confirm="Bạn có chắc muốn xóa sản phẩm <%= product.name %>?">Xóa</button>
+                </form>
+              </div></td>
+            </tr>
+          <% }) %></tbody>
+        </table></div>
+      <% } else { %>
+        <div class="admin-empty"><span>⌕</span><strong>Không tìm thấy sản phẩm</strong><p>Thử thay đổi bộ lọc hoặc thêm sản phẩm mới.</p></div>
+      <% } %>
+    </div>
+    <div class="admin-panel" id="add-product">
+      <div class="admin-panel-head"><div><h2>+ Thêm sản phẩm mới</h2><p>Điền thông tin và lưu vào database.</p></div></div>
+      <form class="admin-product-form" action="/admin/products" method="post">
+        <label>Tên sản phẩm <input name="name" placeholder="Ví dụ: AMD Ryzen 7 7800X3D" maxlength="180" required></label>
+        <label>Hãng <input name="brand" placeholder="Ví dụ: AMD" maxlength="100" required></label>
+        <label>Danh mục <select name="category" required><% categories.forEach((category) => { %><option value="<%= category %>"><%= category %></option><% }) %></select></label>
+        <label>Giá bán (đ) <input type="number" name="price" min="0" step="1" placeholder="0" required></label>
+        <label>Tồn kho <input type="number" name="stock" min="0" step="1" value="10" required></label>
+        <label>Hiệu năng (1–100) <input type="number" name="performance" min="1" max="100" value="70" required></label>
+        <label class="admin-field-wide">Đường dẫn ảnh <input name="image" value="/uploads/component.svg" placeholder="/uploads/component.svg"></label>
+        <label class="admin-field-wide">Thông số kỹ thuật (JSON) <textarea name="specs" rows="4" spellcheck="false">{}</textarea><small>Ví dụ: {"socket":"AM5","ram":"DDR5"}. Với PC build sẵn, có thể nhập purpose và components.</small></label>
+        <div class="admin-form-actions"><button class="btn primary" type="submit">+ Lưu sản phẩm</button></div>
+      </form>
     </div>
   </section>
 </div>
