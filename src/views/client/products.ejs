@@ -1,7 +1,7 @@
 <%- include('../partials/header') %>
 <section class="page-title">
   <h1>Sản phẩm</h1>
-  <p>Lọc linh kiện theo danh mục và hiệu năng.</p>
+  <p>Khám phá linh kiện rời và các bộ PC build sẵn.</p>
 </section>
 
 <form class="filter-bar" action="/products" method="get">
@@ -26,7 +26,7 @@
       <img src="<%= product.image %>" alt="<%= product.name %>">
       <p class="category"><%= product.category %> - <%= product.brand %></p>
       <h3><%= product.name %></h3>
-      <p>Hiệu năng: <strong><%= product.performance %>/100</strong></p>
+      <p><%= product.category === "PC Build sẵn" ? (product.specs.purpose || "Cấu hình hoàn chỉnh") : "Hiệu năng: " + product.performance + "/100" %></p>
       <p class="price"><%= product.price.toLocaleString('vi-VN') %>đ</p>
       <div class="card-actions">
         <a class="btn small" href="/products/<%= product.id %>">Chi tiết</a>
@@ -40,6 +40,6 @@
   <% }) %>
 </div>
 <% if (!products.length) { %>
-  <p class="empty-state">Không tìm thấy linh kiện phù hợp.</p>
+  <p class="empty-state">Không tìm thấy sản phẩm phù hợp.</p>
 <% } %>
 <%- include('../partials/footer') %>
