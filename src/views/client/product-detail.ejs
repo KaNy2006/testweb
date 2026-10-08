@@ -20,14 +20,24 @@
 </section>
 
 <section class="spec-box">
-  <h2>Thông số kỹ thuật</h2>
-  <table>
-    <% Object.entries(product.specs).forEach(([key, value]) => { %>
-      <tr>
-        <th><%= key.toUpperCase() %></th>
-        <td><%= value %></td>
-      </tr>
-    <% }) %>
-  </table>
+  <% if (product.category === 'PC Build sẵn' && Array.isArray(product.specs.components)) { %>
+    <h2>Cấu hình chi tiết của bộ PC</h2>
+    <p>Đây là một sản phẩm hoàn chỉnh. Khi đặt hàng, bạn mua cả bộ PC với mức giá hiển thị phía trên.</p>
+    <table>
+      <thead><tr><th>Linh kiện</th><th>Sản phẩm</th></tr></thead>
+      <tbody>
+        <% product.specs.components.forEach((part) => { %>
+          <tr><th><%= part.category %></th><td><%= part.name %></td></tr>
+        <% }) %>
+      </tbody>
+    </table>
+  <% } else { %>
+    <h2>Thông số kỹ thuật</h2>
+    <table>
+      <% Object.entries(product.specs).forEach(([key, value]) => { %>
+        <tr><th><%= key.toUpperCase() %></th><td><%= value %></td></tr>
+      <% }) %>
+    </table>
+  <% } %>
 </section>
 <%- include('../partials/footer') %>
