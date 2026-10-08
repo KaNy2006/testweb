@@ -77,15 +77,17 @@ async function create(product) {
 async function update(id, data) {
   await db.execute(
     `UPDATE products
-     SET name = ?, brand = ?, category = ?, price = ?, stock = ?, performance = ?
+     SET name = ?, brand = ?, category = ?, price = ?, stock = ?, performance = ?, image = ?, specs = ?
      WHERE id = ?`,
     [
       data.name,
       data.brand,
       data.category,
-      Number(data.price) || 0,
-      Number(data.stock) || 0,
-      Number(data.performance) || 70,
+      Number(data.price),
+      Number(data.stock),
+      Number(data.performance),
+      data.image || "/uploads/component.svg",
+      JSON.stringify(data.specs || {}),
       Number(id),
     ]
   );
