@@ -2,26 +2,35 @@
 <div class="admin-layout">
   <%- include('../partials/admin_sidebar') %>
   <section class="admin-content">
-    <h1>Dashboard</h1>
+    <div class="admin-page-heading">
+      <div><p class="admin-eyebrow">BẢNG ĐIỀU KHIỂN</p><h1>Tổng quan cửa hàng</h1><p>Theo dõi sản phẩm và đơn hàng từ cơ sở dữ liệu.</p></div>
+      <a class="btn primary" href="/admin/products">+ Quản lý sản phẩm</a>
+    </div>
     <div class="metric-grid">
-      <article><span>Doanh thu</span><strong><%= summary.revenue.toLocaleString('vi-VN') %>đ</strong></article>
-      <article><span>Đơn hàng</span><strong><%= summary.orders %></strong></article>
-      <article><span>Chờ duyệt</span><strong><%= summary.pending %></strong></article>
+      <article class="metric-card"><div class="metric-label"><span>Doanh thu đơn hàng</span><span class="metric-icon">↗</span></div><strong><%= summary.revenue.toLocaleString('vi-VN') %>đ</strong><small>Tổng giá trị đơn đã ghi nhận</small></article>
+      <article class="metric-card"><div class="metric-label"><span>Tổng đơn hàng</span><span class="metric-icon">▤</span></div><strong><%= summary.orders %></strong><small>Đơn hàng trong hệ thống</small></article>
+      <article class="metric-card"><div class="metric-label"><span>Đơn chờ duyệt</span><span class="metric-icon">◷</span></div><strong><%= summary.pending %></strong><small>Cần xử lý</small></article>
+      <article class="metric-card"><div class="metric-label"><span>Sản phẩm</span><span class="metric-icon">◇</span></div><strong><%= productCount %></strong><small>Trong đó <%= prebuiltCount %> bộ PC build sẵn</small></article>
     </div>
-    <div class="chart-bars">
-      <div style="height: 70%"></div>
-      <div style="height: 45%"></div>
-      <div style="height: 82%"></div>
-      <div style="height: 55%"></div>
-      <div style="height: 92%"></div>
+    <div class="admin-panel">
+      <div class="admin-panel-head"><div><h2>Đơn hàng gần đây</h2><p>6 đơn hàng mới nhất</p></div><a href="/admin/orders">Xem tất cả →</a></div>
+      <% if (orders.length) { %>
+      <div class="admin-table-scroll"><table class="admin-table">
+        <thead><tr><th>Mã đơn</th><th>Khách hàng</th><th>Ngày đặt</th><th>Tổng tiền</th><th>Trạng thái</th></tr></thead>
+        <tbody><% orders.forEach((order) => { %><tr>
+          <td><strong>#<%= order.id %></strong></td><td><%= order.customer %></td><td><%= order.createdAt %></td>
+          <td class="admin-price"><%= order.total.toLocaleString('vi-VN') %>đ</td>
+          <td><span class="status-badge <%= order.status === 'Hoàn tất' ? 'done' : order.status === 'Đã hủy' ? 'cancelled' : order.status === 'Đang giao' ? 'shipping' : 'pending' %>"><%= order.status %></span></td>
+        </tr><% }) %></tbody>
+      </table></div>
+      <% } else { %>
+        <div class="admin-empty"><span>▤</span><strong>Chưa có đơn hàng nào</strong><p>Khi khách đặt hàng, dữ liệu sẽ xuất hiện tại đây.</p></div>
+      <% } %>
     </div>
-    <h2>Đơn gần đây</h2>
-    <table class="admin-table">
-      <tr><th>Mã</th><th>Khách hàng</th><th>Tổng tiền</th><th>Trạng thái</th></tr>
-      <% orders.forEach((order) => { %>
-        <tr><td>#<%= order.id %></td><td><%= order.customer %></td><td><%= order.total.toLocaleString('vi-VN') %>đ</td><td><%= order.status %></td></tr>
-      <% }) %>
-    </table>
+    <div class="admin-shortcuts">
+      <a href="/admin/products"><span>▤</span><strong>Quản lý sản phẩm</strong><small>Thêm, xem, sửa và xóa sản phẩm →</small></a>
+      <a href="/admin/orders"><span>▣</span><strong>Quản lý đơn hàng</strong><small>Theo dõi và cập nhật trạng thái →</small></a>
+    </div>
   </section>
 </div>
 <%- include('../partials/footer') %>
