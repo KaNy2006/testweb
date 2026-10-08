@@ -8,6 +8,8 @@ router.use(requireAdmin);
 router.get("/", AdminController.dashboard);
 router.get("/products", AdminController.products);
 router.post("/products", AdminController.createProduct);
+router.get("/products/:id/edit", AdminController.editProductPage);
+router.get("/products/:id", AdminController.productDetail);
 router.post("/products/:id/update", AdminController.updateProduct);
 router.post("/products/:id/delete", AdminController.deleteProduct);
 router.get("/orders", AdminController.orders);
