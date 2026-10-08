@@ -6,7 +6,7 @@
     <p>Khám phá linh kiện chính hãng, cấu hình tối ưu hoặc để chúng tôi gợi ý cho bạn bộ PC phù hợp nhất.</p>
     <div class="hero-actions">
       <a class="btn primary" href="/pc-builder">⚙ Tự build PC →</a>
-      <a class="btn glass" href="/products">◇ Xem PC build sẵn →</a>
+      <a class="btn glass" href="/products?category=PC%20Build%20s%E1%BA%B5n">◇ Xem PC build sẵn →</a>
     </div>
   </div>
   <div class="hero-rig">
@@ -65,18 +65,31 @@
 
     <section class="section-head prebuilt-head">
       <div><h2>◇ PC Build sẵn</h2><p>Cấu hình tối ưu, sẵn sàng chiến mọi tác vụ</p></div>
-      <a href="/products">Xem tất cả →</a>
+      <a href="/products?category=PC%20Build%20s%E1%BA%B5n">Xem tất cả →</a>
     </section>
     <div class="prebuilt-row">
-      <article class="prebuilt-card"><div class="prebuilt-image">PC</div><div><span class="pill green">Bán chạy</span><h3>Gaming PC Pro</h3><p>Gaming hiệu năng cao · DDR5 · SSD NVMe</p><strong>32.990.000đ</strong></div><a class="btn small primary" href="/products">Xem chi tiết →</a></article>
-      <article class="prebuilt-card"><div class="prebuilt-image">PC</div><div><span class="pill red">Hot</span><h3>Gaming PC Standard</h3><p>Cân bằng hiệu năng và ngân sách</p><strong>21.990.000đ</strong></div><a class="btn small primary" href="/products">Xem chi tiết →</a></article>
-      <article class="prebuilt-card"><div class="prebuilt-image office">PC</div><div><h3>PC Văn Phòng</h3><p>Gọn gàng · ổn định · tiết kiệm</p><strong>13.990.000đ</strong></div><a class="btn small primary" href="/products">Xem chi tiết →</a></article>
+      <% prebuiltProducts.slice(0, 3).forEach((pc, index) => { %>
+        <article class="prebuilt-card">
+          <img class="prebuilt-image" src="<%= pc.image %>" alt="<%= pc.name %>">
+          <div>
+            <% if (index === 0) { %><span class="pill green">Nổi bật</span><% } %>
+            <h3><%= pc.name %></h3>
+            <p><%= pc.specs.purpose || 'Cấu hình PC hoàn chỉnh' %></p>
+            <strong><%= pc.price.toLocaleString('vi-VN') %>đ</strong>
+          </div>
+          <a class="btn small primary" href="/products/<%= pc.id %>">Xem chi tiết →</a>
+        </article>
+      <% }) %>
     </div>
+    <% if (!prebuiltProducts.length) { %>
+      <p class="empty-state">Chưa có PC build sẵn. Chạy lệnh npm run seed:prebuilt để thêm 3 bộ PC.</p>
+    <% } %>
+div>
   </div>
 
   <aside class="home-sidebar">
     <div class="side-card prebuilt-promo">
-      <div><h2>PC Build sẵn</h2><p>Nhiều cấu hình tối ưu cho Game, Đồ họa, Văn phòng...</p><a class="btn primary small" href="/products">Xem ngay →</a></div>
+      <div><h2>PC Build sẵn</h2><p>Nhiều cấu hình tối ưu cho Game, Đồ họa, Văn phòng...</p><a class="btn primary small" href="/products?category=PC%20Build%20s%E1%BA%B5n">Xem ngay →</a></div>
       <div class="pc-glow">PC</div>
     </div>
     <div class="side-card ai-promo">
