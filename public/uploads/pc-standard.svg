@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 420" role="img" aria-label="PC STANDARD">
+<defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#172940"/><stop offset="1" stop-color="#070e18"/></linearGradient><linearGradient id="glass" x2="1" y2="1"><stop stop-color="#1d3553"/><stop offset="1" stop-color="#07101c"/></linearGradient><filter id="glow"><feGaussianBlur stdDeviation="5"/></filter></defs>
+<rect width="480" height="420" rx="24" fill="url(#bg)"/>
+<ellipse cx="248" cy="372" rx="133" ry="20" fill="#35b7ff" opacity=".2" filter="url(#glow)"/>
+<path d="M140 50h187l34 24v278l-34 19H140z" fill="#050b14" stroke="#46617e" stroke-width="5"/>
+<path d="M158 68h154l25 19v254l-25 13H158z" fill="url(#glass)" stroke="#35b7ff" stroke-width="2"/>
+<path d="M158 68h154l25 19v254l-25 13H158z" fill="#125aaf" opacity=".07"/>
+<rect x="183" y="112" width="112" height="136" rx="8" fill="#15283e" stroke="#5d7390" stroke-width="4"/>
+<rect x="201" y="134" width="71" height="70" rx="6" fill="#111a29" stroke="#35b7ff" stroke-width="4"/>
+<path d="M216 146h42v45h-42z" fill="#125aaf" opacity=".35"/>
+<rect x="282" y="117" width="7" height="105" rx="3" fill="#35b7ff"/>
+<rect x="299" y="117" width="7" height="105" rx="3" fill="#125aaf"/>
+<rect x="180" y="258" width="125" height="24" rx="6" fill="#07121e" stroke="#35b7ff"/>
+<path d="M186 268h115" stroke="#125aaf" stroke-width="4"/>
+<rect x="178" y="297" width="128" height="36" rx="6" fill="#0a1420" stroke="#34475e"/>
+<g fill="none" stroke="#35b7ff" stroke-width="6"><circle cx="221" cy="165" r="27"/><circle cx="310" cy="145" r="18"/><circle cx="310" cy="197" r="18"/><circle cx="310" cy="249" r="18"/></g>
+<g fill="#35b7ff" opacity=".4"><circle cx="221" cy="165" r="15"/><circle cx="310" cy="145" r="9"/><circle cx="310" cy="197" r="9"/><circle cx="310" cy="249" r="9"/></g>
+<path d="M365 90l21 7v246l-21 9z" fill="#182538" stroke="#5d7595"/>
+<rect x="371" y="110" width="7" height="9" rx="3" fill="#35b7ff"/>
+<text x="240" y="401" text-anchor="middle" fill="#dceeff" font-size="17" font-family="Arial,sans-serif" font-weight="bold">PC UPGRADE · STANDARD</text>
+</svg>
