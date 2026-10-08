@@ -24,3 +24,11 @@ input,select,button{font:inherit}input,select{width:100%;min-height:42px;padding
 /* Keep the category navigation on one row as more product groups are added. */
 .home-categories{display:flex;gap:10px;overflow-x:auto;scrollbar-width:thin;padding-bottom:4px}
 .home-categories .category-chip{flex:1 0 120px;min-width:120px}
+
+/* Five ready-built PC cards: budget to ultimate, same dark theme. */
+.prebuilt-row{grid-template-columns:repeat(3,minmax(0,1fr))}
+.prebuilt-card{min-width:0}
+.prebuilt-card .prebuilt-image{max-width:100%}
+.prebuilt-card .pill.ultimate{background:linear-gradient(110deg,#7937dc,#dd4ba9);color:#fff}
+@media(max-width:820px){.prebuilt-row{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.prebuilt-row{grid-template-columns:1fr}}
