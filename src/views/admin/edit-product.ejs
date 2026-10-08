@@ -1,0 +1,24 @@
+<%- include('../partials/header') %>
+<div class="admin-layout">
+  <%- include('../partials/admin_sidebar') %>
+  <section class="admin-content">
+    <div class="admin-page-heading">
+      <div><p class="admin-eyebrow">CHỈNH SỬA SẢN PHẨM</p><h1><%= product.name %></h1><p>Thay đổi thông tin và lưu trực tiếp vào database.</p></div>
+      <a class="btn" href="/admin/products/<%= product.id %>">← Quay lại chi tiết</a>
+    </div>
+    <div class="admin-panel">
+      <form class="admin-product-form" action="/admin/products/<%= product.id %>/update" method="post">
+        <label>Tên sản phẩm <input name="name" value="<%= product.name %>" maxlength="180" required></label>
+        <label>Hãng <input name="brand" value="<%= product.brand %>" maxlength="100" required></label>
+        <label>Danh mục <select name="category"><% categories.forEach((category) => { %><option value="<%= category %>" <%= category === product.category ? 'selected' : '' %>><%= category %></option><% }) %></select></label>
+        <label>Giá bán (đ) <input type="number" name="price" min="0" step="1" value="<%= product.price %>" required></label>
+        <label>Tồn kho <input type="number" name="stock" min="0" step="1" value="<%= product.stock %>" required></label>
+        <label>Hiệu năng (1–100) <input type="number" name="performance" min="1" max="100" value="<%= product.performance %>" required></label>
+        <label class="admin-field-wide">Đường dẫn ảnh <input name="image" value="<%= product.image %>"></label>
+        <label class="admin-field-wide">Thông số kỹ thuật (JSON) <textarea name="specs" rows="12" spellcheck="false"><%= JSON.stringify(product.specs, null, 2) %></textarea><small>Giữ nguyên danh sách components nếu đây là PC build sẵn.</small></label>
+        <div class="admin-form-actions"><button class="btn primary" type="submit">Lưu thay đổi</button><a class="btn" href="/admin/products/<%= product.id %>">Hủy</a></div>
+      </form>
+    </div>
+  </section>
+</div>
+<%- include('../partials/footer') %>
