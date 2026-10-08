@@ -5,6 +5,7 @@ async function index(req, res) {
     title: "Linh kien may tinh",
     featuredProducts: await ProductModel.getFeatured(),
     allProducts: await ProductModel.getAll(),
+    prebuiltProducts: await ProductModel.getAll({ category: "PC Build sẵn" }),
     categories: await ProductModel.getCategories(),
   });
 }
