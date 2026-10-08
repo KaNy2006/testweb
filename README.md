@@ -1,28 +1,27 @@
 # PC Upgrade Store
 
-Website ban linh kien va PC build san (Express + EJS + MySQL).
+Website bán linh kiện và PC build sẵn bằng Express, EJS và MySQL.
 
-## Them 5 bo PC build san
+## Chạy trong Codespaces
 
-Sau khi import `database/schema.sql` va cau hinh MySQL trong `.env`, chay:
+Sau khi đã cấu hình MySQL và import `database/schema.sql`:
 
 ```bash
+git pull origin main
+npm run cleanup:prebuilt
 npm run seed:prebuilt
 npm start
 ```
 
-Lenh `seed:prebuilt` them cac linh kien con thieu va 5 bo PC: Gaming PC Pro, Gaming PC Standard, PC Hoc tap & Lam viec, Gaming PC Budget 1080p, Gaming PC Ultimate 9950X3D RTX 5090. Chay lai khong tao trung san pham trung ten.
+- `cleanup:prebuilt` chỉ xóa 2 **bộ PC build sẵn** được thêm gần đây: `Gaming PC Budget 1080p` và `Gaming PC Ultimate 9950X3D RTX 5090`. Không xóa linh kiện rời hay lịch sử đơn hàng.
+- `seed:prebuilt` bổ sung 3 bộ PC gốc nếu chưa có: Gaming PC Pro, Gaming PC Standard, PC Học tập & Làm việc. Chạy lại không tạo trùng tên.
+- Trang chủ hiển thị 3 bộ PC. Mỗi bộ có trang chi tiết và được thêm vào giỏ như một sản phẩm.
 
-- Trang chu: hien thi 5 PC build san tu database.
-- Danh sach: `/products?category=PC%20Build%20s%E1%BA%B5n`.
-- Chi tiet: hien thi 8 linh kien cua tung bo.
-- Gio hang: moi bo PC duoc mua nhu mot san pham thong thuong.
+## Quản trị
 
-**Luu y:** Phan mo phong chi mo khoa sau khi mua du PC la tinh nang du kien, chua duoc trien khai trong scope nay.
+Đăng nhập tài khoản quản trị rồi mở `/admin`:
+- Dashboard: thống kê từ database và đơn gần đây.
+- `/admin/products`: thêm, tìm kiếm, xem, sửa, xóa sản phẩm (linh kiện và PC build sẵn).
+- `/admin/orders`: xem và cập nhật trạng thái đơn hàng.
 
-## Hai phan khuc moi
-
-- **Gaming PC Budget 1080p**: Ryzen 5 5600, RX 6600 8GB, RAM 16GB DDR4 (2x8GB), main B550M, SSD 500GB, nguon 550W, case Micro-ATX, tan nhiet AM4. Muc tieu 10-15 trieu; phu hop gaming 1080p medium, FPS tuy game.
-- **Gaming PC Ultimate 9950X3D RTX 5090**: Ryzen 9 9950X3D, RTX 5090 32GB, RAM DDR5 64GB (2 thanh 32GB), main X870E, SSD 4TB, nguon 1200W, case ATX, AIO 360mm.
-
-Gia linh kien trong seed la **gia minh hoa de demo**, khong phai bao gia thi truong thoi gian thuc. Hai bo moi co du 8 nhom linh kien. Chay lai `npm run seed:prebuilt` sau `git pull` de bo sung vao MySQL hien co.
+Chỉ tài khoản admin được truy cập các đường dẫn này. Chức năng mở khóa mô phỏng sau khi mua đủ PC chưa được triển khai trong scope này.
