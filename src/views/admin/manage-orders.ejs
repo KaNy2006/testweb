@@ -2,29 +2,27 @@
 <div class="admin-layout">
   <%- include('../partials/admin_sidebar') %>
   <section class="admin-content">
-    <h1>Quản lý đơn hàng</h1>
-    <table class="admin-table">
-      <tr><th>Mã</th><th>Khách hàng</th><th>Ngày</th><th>Tổng</th><th>Trạng thái</th><th>Cập nhật</th></tr>
-      <% orders.forEach((order) => { %>
-        <tr>
-          <td>#<%= order.id %></td>
-          <td><%= order.customer %></td>
-          <td><%= order.createdAt %></td>
-          <td><%= order.total.toLocaleString('vi-VN') %>đ</td>
-          <td><%= order.status %></td>
-          <td>
-            <form action="/admin/orders/<%= order.id %>/status" method="post" class="status-form">
-              <select name="status">
-                <% ['Chờ duyệt', 'Đang giao', 'Hoàn tất', 'Đã hủy'].forEach((status) => { %>
+    <div class="admin-page-heading"><div><p class="admin-eyebrow">QUẢN LÝ BÁN HÀNG</p><h1>Đơn hàng</h1><p>Kiểm tra và cập nhật trạng thái đơn hàng của khách.</p></div></div>
+    <div class="admin-panel">
+      <div class="admin-panel-head"><div><h2>Danh sách đơn hàng</h2><p>Tổng cộng <%= orders.length %> đơn</p></div></div>
+      <% if (orders.length) { %>
+        <div class="admin-table-scroll"><table class="admin-table">
+          <thead><tr><th>Mã đơn</th><th>Khách hàng</th><th>Ngày đặt</th><th>Tổng tiền</th><th>Trạng thái</th><th>Cập nhật</th></tr></thead>
+          <tbody><% orders.forEach((order) => { %><tr>
+            <td><strong>#<%= order.id %></strong></td><td><%= order.customer %></td><td><%= order.createdAt %></td>
+            <td class="admin-price"><%= order.total.toLocaleString('vi-VN') %>đ</td>
+            <td><span class="status-badge <%= order.status === 'Hoàn tất' ? 'done' : order.status === 'Đã hủy' ? 'cancelled' : order.status === 'Đang giao' ? 'shipping' : 'pending' %>"><%= order.status %></span></td>
+            <td><form class="admin-status-form" action="/admin/orders/<%= order.id %>/status" method="post">
+              <select name="status" aria-label="Trạng thái đơn #<%= order.id %>">
+                <% ['Chờ duyệt','Đang giao','Hoàn tất','Đã hủy'].forEach((status) => { %>
                   <option value="<%= status %>" <%= order.status === status ? 'selected' : '' %>><%= status %></option>
                 <% }) %>
-              </select>
-              <button type="submit">Lưu</button>
-            </form>
-          </td>
-        </tr>
-      <% }) %>
-    </table>
+              </select><button class="btn small primary" type="submit">Lưu</button>
+            </form></td>
+          </tr><% }) %></tbody>
+        </table></div>
+      <% } else { %}<div class="admin-empty"><span>▣</span><strong>Chưa có đơn hàng</strong><p>Các đơn mới sẽ xuất hiện tại đây.</p></div><% } %>
+    </div>
   </section>
 </div>
 <%- include('../partials/footer') %>
