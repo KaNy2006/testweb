@@ -1,0 +1,42 @@
+<%- include('../partials/header') %>
+<div class="admin-layout">
+  <%- include('../partials/admin_sidebar') %>
+  <section class="admin-content">
+    <div class="admin-page-heading">
+      <div><p class="admin-eyebrow">CHI TIẾT SẢN PHẨM</p><h1><%= product.name %></h1><p>Mã #<%= product.id %> · <%= product.category %></p></div>
+      <div class="admin-actions"><a class="btn" href="/admin/products">← Danh sách</a><a class="btn primary" href="/admin/products/<%= product.id %>/edit">Sửa sản phẩm</a></div>
+    </div>
+    <div class="admin-panel admin-detail-layout">
+      <div class="admin-detail-image"><img src="<%= product.image %>" alt="<%= product.name %>"></div>
+      <div>
+        <span class="admin-category"><%= product.category %></span>
+        <h2><%= product.name %></h2>
+        <p class="admin-detail-brand">Thương hiệu: <%= product.brand %></p>
+        <div class="admin-detail-price"><%= product.price.toLocaleString('vi-VN') %>đ</div>
+        <div class="admin-detail-facts">
+          <div><span>Tồn kho</span><strong><%= product.stock %></strong></div>
+          <div><span>Hiệu năng</span><strong><%= product.performance %>/100</strong></div>
+          <div><span>Loại</span><strong><%= product.category %></strong></div>
+        </div>
+        <form action="/admin/products/<%= product.id %>/delete" method="post">
+          <button class="btn danger" type="submit" data-confirm="Bạn có chắc muốn xóa sản phẩm <%= product.name %>?">Xóa sản phẩm</button>
+        </form>
+      </div>
+    </div>
+    <div class="admin-panel">
+      <div class="admin-panel-head"><div><h2>Thông số kỹ thuật</h2><p>Dữ liệu lưu trong trường specs của sản phẩm.</p></div></div>
+      <% if (Object.keys(product.specs).length) { %>
+        <div class="admin-table-scroll"><table class="admin-table"><tbody>
+          <% Object.entries(product.specs).forEach(([key, value]) => { %>
+            <% if (key === 'components' && Array.isArray(value)) { %>
+              <tr><th>Danh sách linh kiện</th><td><ul class="admin-components"><% value.forEach((part) => { %><li><%= part.category %> — <%= part.name %></li><% }) %></ul></td></tr>
+            <% } else { %>
+              <tr><th><%= key %></th><td><%= typeof value === 'object' ? JSON.stringify(value) : value %></td></tr>
+            <% } %>
+          <% }) %>
+        </tbody></table></div>
+      <% } else { %><p class="admin-muted">Chưa có thông số kỹ thuật.</p><% } %>
+    </div>
+  </section>
+</div>
+<%- include('../partials/footer') %>
