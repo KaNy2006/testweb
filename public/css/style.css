@@ -20,3 +20,7 @@ input,select,button{font:inherit}input,select{width:100%;min-height:42px;padding
 .prebuilt-card img.prebuilt-image{display:block;width:82px;height:120px;min-height:0;object-fit:contain;padding:5px;background:linear-gradient(145deg,#172a42,#09111c)}
 .prebuilt-card .btn{align-self:end}
 .detail-info .category{margin-top:0}
+
+/* Keep the category navigation on one row as more product groups are added. */
+.home-categories{display:flex;gap:10px;overflow-x:auto;scrollbar-width:thin;padding-bottom:4px}
+.home-categories .category-chip{flex:1 0 120px;min-width:120px}
