@@ -68,11 +68,13 @@
       <a href="/products?category=PC%20Build%20s%E1%BA%B5n">Xem tất cả →</a>
     </section>
     <div class="prebuilt-row">
-      <% prebuiltProducts.slice(0, 3).forEach((pc, index) => { %>
+      <% prebuiltProducts.slice(0, 5).forEach((pc, index) => { %>
         <article class="prebuilt-card">
           <img class="prebuilt-image" src="<%= pc.image %>" alt="<%= pc.name %>">
           <div>
-            <% if (index === 0) { %><span class="pill green">Nổi bật</span><% } %>
+            <% if (pc.specs.tier === 'Ultimate') { %><span class="pill ultimate">VIP PRO</span>
+            <% } else if (pc.specs.tier === 'Tiet kiem') { %><span class="pill green">Giá rẻ</span>
+            <% } else if (index === 0) { %><span class="pill green">Nổi bật</span><% } %>
             <h3><%= pc.name %></h3>
             <p><%= pc.specs.purpose || 'Cấu hình PC hoàn chỉnh' %></p>
             <strong><%= pc.price.toLocaleString('vi-VN') %>đ</strong>
@@ -82,7 +84,7 @@
       <% }) %>
     </div>
     <% if (!prebuiltProducts.length) { %>
-      <p class="empty-state">Chưa có PC build sẵn. Chạy lệnh npm run seed:prebuilt để thêm 3 bộ PC.</p>
+      <p class="empty-state">Chưa có PC build sẵn. Chạy lệnh npm run seed:prebuilt để thêm 5 bộ PC.</p>
     <% } %>
   </div>
 
