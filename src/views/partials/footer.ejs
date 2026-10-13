@@ -1,7 +1,26 @@
   </main>
   <footer class="site-footer">
-    <p>Computer Component Store MVC - Express, EJS, Model, Controller, Route.</p>
+    <div class="retail-footer-inner">
+      <div>
+        <h2>PC UPGRADE STORE</h2>
+        <p>Linh kiện máy tính, PC build sẵn và công cụ xây dựng cấu hình phù hợp với nhu cầu của bạn.</p>
+      </div>
+      <div>
+        <h3>Khám phá</h3>
+        <a href="/products">Linh kiện PC</a>
+        <a href="/products?category=PC%20Build%20s%E1%BA%B5n">PC build sẵn</a>
+        <a href="/pc-builder">PC Builder</a>
+      </div>
+      <div>
+        <h3>Tài khoản</h3>
+        <a href="/cart">Giỏ hàng</a>
+        <% if (!user) { %><a href="/login">Đăng nhập</a><a href="/register">Đăng ký</a><% } %>
+        <% if (user && user.role === 'admin') { %><a href="/admin">Quản trị</a><% } %>
+      </div>
+    </div>
+    <div class="retail-footer-bottom">PC Upgrade Store · Xây dựng trên Node.js, Express và EJS</div>
   </footer>
   <script src="/js/main.js"></script>
+  <script src="/js/figma-shell.js"></script>
 </body>
 </html>
