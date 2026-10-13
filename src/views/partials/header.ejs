@@ -4,28 +4,49 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><%= title %> | PC Upgrade Store</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/admin.css">
+  <link rel="stylesheet" href="/css/figma-shell.css">
 </head>
 <body>
+  <div class="retail-utility">
+    <div class="retail-utility-inner">
+      <span>PC Upgrade Store · Linh kiện và cấu hình PC</span>
+      <span>Tìm linh kiện phù hợp với nhu cầu của bạn</span>
+    </div>
+  </div>
   <header class="site-header">
-    <a class="brand" href="/"><span class="brand-mark">◇</span><span>PC Upgrade Store</span></a>
-    <form class="search" action="/products" method="get">
-      <input type="search" name="keyword" placeholder="Tìm CPU, GPU, RAM, mainboard..." value="<%= typeof filters !== 'undefined' ? (filters.keyword || '') : '' %>">
-      <button type="submit" aria-label="Tìm kiếm">⌕</button>
-    </form>
-    <nav>
-      <a href="/products">Sản phẩm</a>
-      <a href="/products?category=PC%20Build%20s%E1%BA%B5n">PC Build sẵn</a>
-      <a href="/pc-builder">PC Builder</a>
-      <a href="/pc-builder">Mô phỏng</a>
-      <a href="/cart">Giỏ hàng (<%= cart.length %>)</a>
-      <% if (user && user.role === 'admin') { %><a href="/admin">Admin</a><% } %>
+    <div class="retail-header-main">
+      <a class="brand" href="/" aria-label="PC Upgrade Store - Trang chủ">
+        <span class="brand-mark">PC</span>
+        <span class="brand-label">UPGRADE<small>STORE</small></span>
+      </a>
+      <form class="search" action="/products" method="get" role="search">
+        <input type="search" name="keyword" placeholder="Tìm CPU, GPU, RAM, mainboard..." aria-label="Tìm kiếm sản phẩm" value="<%= typeof filters !== 'undefined' ? (filters.keyword || '') : '' %>">
+        <button type="submit" aria-label="Tìm kiếm">⌕</button>
+      </form>
       <% if (user) { %>
-        <form action="/logout" method="post" class="inline-form"><button type="submit">Đăng xuất</button></form>
+        <span class="retail-header-link account-link">Tài khoản<small><%= user.name || user.username || 'Đã đăng nhập' %></small></span>
+        <form action="/logout" method="post" class="retail-logout"><button type="submit">Đăng xuất</button></form>
       <% } else { %>
-        <a class="nav-login" href="/login">Đăng nhập</a>
+        <a class="retail-header-link account-link" href="/login">Tài khoản<small>Đăng nhập</small></a>
       <% } %>
+      <a class="retail-header-link" href="/cart">Giỏ hàng<small><%= cart.length %> sản phẩm</small></a>
+      <button class="retail-mobile-toggle" type="button" data-retail-menu-toggle aria-controls="retail-navigation" aria-expanded="false" aria-label="Mở menu">☰</button>
+    </div>
+    <nav class="retail-nav" id="retail-navigation" aria-label="Điều hướng chính">
+      <div class="retail-nav-inner">
+        <a href="/products">DANH MỤC SẢN PHẨM</a>
+        <a href="/">Trang chủ</a>
+        <a href="/products">Linh kiện PC</a>
+        <a href="/products?category=PC%20Build%20s%E1%BA%B5n">PC Build sẵn</a>
+        <a href="/pc-builder">PC Builder</a>
+        <a href="/pc-builder">Mô phỏng lắp ráp</a>
+        <% if (user && user.role === 'admin') { %><a href="/admin">Quản trị</a><% } %>
+      </div>
     </nav>
   </header>
   <% if (flash) { %><div class="flash <%= flash.type %>"><%= flash.message %></div><% } %>
