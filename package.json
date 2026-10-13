@@ -4,7 +4,7 @@
   "description": "MVC computer component store built with Express and EJS",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "bash scripts/start.sh",
     "dev": "node app.js",
     "seed:prebuilt": "node database/seed-prebuilt.js",
     "cleanup:prebuilt": "node database/remove-recent-prebuilt.js"
